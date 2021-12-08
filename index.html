@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS TCP Client</title>
+    <script defer src="render.js"></script>
+    <style>
+        textarea{
+            resize: none;
+            width: 100%;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <textarea readonly id="logs"></textarea>
+    <input value="3332" id="port" placeholder="8000" type="text"/>
+    <input value="10.200.12.106" id="host" placeholder="000.000.000.000"type="text"/>
+    <button onclick="connect()">Connect</button>
+    <button onclick="disconnect()">Disconnect</button>
+</body>
+</html>
