@@ -33,16 +33,16 @@ It recive several arguments.
 
         //Defining function for logging succesfull connection
         function onConnect(){
-            console.log("Connected);
+            console.log("Connected");
         }    
 
         //Defining function to handle new data from server
         function onData(data){
-            conosle.log(data);
+            console.log(data);
         }
 
+        //Specifing port, host and default data type ASCII
         const client = new Client(8080, "10.200.140.140");
-        //Specified port, host and default data type ASCII
 
         client.setOnConnect(onConnect);
         client.setOnData(onData);
@@ -53,7 +53,7 @@ It recive several arguments.
         client.send('I am client and I successfully connected');
         
         //Disconnecting from server after 5000 milliseconds.
-        setTimout(() => client.close(), 5000)
+        setTimeout(() => client.close(), 5000)
 
 
 

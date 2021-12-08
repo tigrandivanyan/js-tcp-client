@@ -7,9 +7,17 @@ class Client {
         this.host = host;
         this.type = type;
     }
+
+    onData = () => {};
+    onConnect = () => {};
     
-    onData = () => { };
-    onConnect = () => { };
+    setOnData = (callback) => {
+        this.onData = callback;
+    };
+
+    setOnConnect = (callback) => { 
+        this.onConnect = callback;
+    };  
 
     connect() {
         socket.connect(this.port, this.host, function () {
