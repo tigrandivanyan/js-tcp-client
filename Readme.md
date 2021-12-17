@@ -5,35 +5,44 @@ It exports default class **Client** so you can easily access it.
 ## Constructer Arguments
 It recive several arguments.
 
-        const client = new Class Client(arguments);
+        const client = new Client(arguments);
 
 ### Arguments
 1. **Port** (number)
 - This is to specify port of your running TCP server.
 2. **Host** (string)
 - This is to specify IP of your running TCP server.
-3. **Data type** (optional, string)
+3. **Data type** (string, optional)
 - This is to define data type that you recive from server.
 - Values
     - "ASCII" (default)
     - "hex"
+4. **onConnect** (function, optional)
+- Through this argument you can set function that will be called after establishing successfull connection.
+5. **onData** (function, optional)
+- This function will be called when data is recived from server. It recives **one argument** which contains the data.
+6. **onEnd** (function, optional)
+- This function will be called when connection with server is closed
+
+        If you send wrong type of argument you will recive log in your console with error.
 ## Methods
 1. **connect()**
 - When you call this method it will try to connect to server.
 2. **send(data)**
 - This will send data argument to server.
-3. **setOnData(callback)**
-- This method will set a function recived from arguments to listen to server. When server will send data, this functino will be called.
-4. **setOnConnect(callback)**
-- This will set a function recived from arguments to listen to server connection. It will be called once when connection to server will be successfully established.
-5. **close()**
+3. **close()**
 - Call of this method will destroy connection with server.
 
 ### Simple client example
 
+        //In electron here you should write code that you want to be runned from your app
+        const Client = require('./client');
+
         //Defining function for logging succesfull connection
         function onConnect(){
             console.log("Connected");
+            //Sending success message to server
+            client.send('I am client and I successfully connected');
         }    
 
         //Defining function to handle new data from server
@@ -41,17 +50,16 @@ It recive several arguments.
             console.log(data);
         }
 
-        //Specifing port, host and default data type ASCII
-        const client = new Client(8080, "10.200.140.140");
+        //Defining function to detect disconnect
+        function onEnd(){
+            console.log("Connection closed")
+        }
 
-        client.setOnConnect(onConnect);
-        client.setOnData(onData);
+        //Specifing port, host and default data type ASCII
+        const client = new Client(6559, "10.200.140.30", "ASCII", onConnect, onData, onEnd);
 
         client.connect();
 
-        //Sending success message to server
-        client.send('I am client and I successfully connected');
-        
         //Disconnecting from server after 5000 milliseconds.
         setTimeout(() => client.close(), 5000)
 
